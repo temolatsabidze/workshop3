@@ -1,24 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from "react";
+import { useState } from "react";
+
+function generateUsers() {
+  return [
+    "user1",
+    "user2",
+    "user3",
+    "user4",
+    "user5",
+    "user6",
+    "user7",
+    "user8",
+    "user9",
+    "user10",
+  ];
+}
 
 function App() {
+  const [items, setItems] = useState(generateUsers());
+
+  useEffect(() => {
+    console.log(items);
+  }, [items]);
+
+  function onButtonClick() {
+    const randomIndex = Math.floor(Math.random() * items.length);
+    const updatedItems = [
+      ...items.slice(0, randomIndex),
+      ...items.slice(randomIndex + 1),
+    ];
+    setItems(updatedItems);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <button onClick={onButtonClick}>users left {items.length}</button>
+    </>
   );
 }
 
